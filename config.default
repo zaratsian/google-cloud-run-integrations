@@ -1,0 +1,12 @@
+# GCP Project ID
+export TF_VAR_GCP_PROJECT_ID=zproject201807
+
+# GCP Region where the resources should be deployed. 
+export TF_VAR_GCP_REGION=us-central1
+
+# Cloud Run App name
+export TF_VAR_APP_CLOUD_RUN_NAME=${TF_VAR_GCP_PROJECT_ID}-app
+
+# Cloud Run Region
+export TF_VAR_APP_CLOUD_RUN_REGION=${TF_VAR_GCP_REGION}
+
