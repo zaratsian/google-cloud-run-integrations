@@ -1,12 +1,21 @@
-# GCP Project ID
+# GCP Project Details
 export TF_VAR_GCP_PROJECT_ID=zproject201807
-
-# GCP Region where the resources should be deployed. 
+export TF_VAR_GCP_PROJECT_NUMBER=880091509850
 export TF_VAR_GCP_REGION=us-central1
 
-# Cloud Run App name
+# Cloud Run
 export TF_VAR_APP_CLOUD_RUN_NAME=${TF_VAR_GCP_PROJECT_ID}-app
-
-# Cloud Run Region
 export TF_VAR_APP_CLOUD_RUN_REGION=${TF_VAR_GCP_REGION}
 
+# CloudSQL 
+export TF_VAR_CLOUDSQL_INSTANCE_NAME="cloudsql-mysql-instance"
+export TF_VAR_CLOUDSQL_DB_VERSION=MYSQL_5_6
+export TF_VAR_CLOUDSQL_TIER=db-f1-micro
+export TF_VAR_CLOUDSQL_DB_NAME=default
+export TF_VAR_CLOUDSQL_USERNAME=admin
+export TF_VAR_CLOUDSQL_HOST="%"
+export TF_VAR_CLOUDSQL_DISK_AUTORESIZE=true
+export TF_VAR_CLOUDSQL_DISK_SIZE=10
+
+# Memorystore Redis
+export TF_VAR_REDIS_INSTANCE_NAME=redis-instance
