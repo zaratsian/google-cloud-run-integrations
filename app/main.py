@@ -16,17 +16,6 @@ app = Flask(__name__)
 
 logger = logging.getLogger()
 
-'''
-export INSTANCE_CONNECTION_NAME="zproject201807:us-central1:example-mysql-dcee"
-export DB_NAME="default"
-export DB_USER="default"
-export DB_PASS="zpassword123"
-
-export REDIS_HOST=10.102.40.131
-export REDIS_PORT=6379
-
-'''
-
 # CloudSQL Params
 gcp_project_id           = os.environ['GCP_PROJECT_ID']
 gcp_region               = os.environ['GCP_REGION']
