@@ -28,29 +28,32 @@ export REDIS_PORT=6379
 '''
 
 # CloudSQL Params
-instance_connection_name = os.environ['INSTANCE_CONNECTION_NAME']
-database = os.environ['DB_NAME']
-username = os.environ['DB_USER'] 
-password = os.environ['DB_PASS']
+gcp_project_id           = os.environ['GCP_PROJECT_ID']
+gcp_region               = os.environ['GCP_REGION']
+cloudsql_instance        = os.environ['CLOUDSQL_INSTANCE_NAME']
+instance_connection_name = f'{gcp_project_id}:{gcp_region}:{cloudsql_instance}'
+cloudsql_database        = os.environ['CLOUDSQL_DB_NAME']
+cloudsql_username        = os.environ['CLOUDSQL_USERNAME'] 
+cloudsql_password        = os.environ['CLOUDSQL_USERPASS']
 
 # Memorystore/Redis Params
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
-redis_port = int(os.environ.get('REDIS_PORT', 6379))
-redis_client = redis.StrictRedis(host=redis_host, port=redis_port)
+#redis_host = os.environ.get('REDIS_HOST', 'localhost')
+#redis_port = int(os.environ.get('REDIS_PORT', 6379))
+#redis_client = redis.StrictRedis(host=redis_host, port=redis_port)
 
 print(f'[ DEBUG ] INSTANCE_CONNECTION_NAME: {instance_connection_name}')
-print(f'[ DEBUG ] DB_USER:                  {database}')
-print(f'[ DEBUG ] DB_NAME:                  {username}')
-print(f'[ DEBUG ] REDIS_HOST:               {redis_host}')
-print(f'[ DEBUG ] REDIS_PORT:               {redis_port}')
+print(f'[ DEBUG ] DB_USER:                  {cloudsql_database}')
+print(f'[ DEBUG ] DB_NAME:                  {cloudsql_username}')
+#print(f'[ DEBUG ] REDIS_HOST:               {redis_host}')
+#print(f'[ DEBUG ] REDIS_PORT:               {redis_port}')
 
 def getconn() -> pymysql.connections.Connection:
     conn: pymysql.connections.Connection = connector.connect(
         instance_connection_name,
         "pymysql",
-        user=username,
-        password=password,
-        db=database
+        user=cloudsql_username,
+        password=cloudsql_password,
+        db=cloudsql_database
     )
     return conn
 
@@ -107,7 +110,7 @@ def query():
 
 
 @app.route('/redis')
-def redis():
+def getredis():
     value = redis_client.incr('counter', 1)
     return f'Visitor number: {value}'
 
